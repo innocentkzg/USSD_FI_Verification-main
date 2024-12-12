@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Institutions</h1>
+<a href="{% url 'add_institution' %}">Add New Institution</a>
+<table>
+    <tr>
+        <th>TIN</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for institution in institutions %}
+    <tr>
+        <td>{{ institution.tin }}</td>
+        <td>{{ institution.name }}</td>
+        <td>{{ institution.category.name }}</td>
+        <td>{{ institution.status }}</td>
+        <td>
+            {% if institution.status == 'Licensed' %}
+            <a href="{% url 'revoke_license' institution.id %}">Revoke License</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
